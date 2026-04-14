@@ -11,7 +11,7 @@ const BookDetails = () => {
   useEffect(() => {
     const fetchBook = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/books/${id}`);
+        const res = await axios.get(`https://api.portorey.my.id/api/books/${id}`);
         setBook(res.data);
       } catch (err) {
         console.error("Error fetching book details", err);
@@ -25,7 +25,7 @@ const BookDetails = () => {
   const handleDownload = () => {
     if (book?.file_path) {
       const link = document.createElement('a');
-      link.href = `http://localhost:5000/uploads/${book.file_path}`;
+      link.href = `https://api.portorey.my.id/uploads/${book.file_path}`;
       link.download = `${book.title}.pdf`;
       document.body.appendChild(link);
       link.click();
@@ -57,9 +57,10 @@ const BookDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[350px,1fr] gap-12 items-start mb-16">
         {/* Left: Cover */}
         <div className="glass p-2 rounded-[2rem] overflow-hidden shadow-2xl">
-          <img 
-            src={book.cover_image ? `http://localhost:5000/uploads/${book.cover_image}` : 'https://via.placeholder.com/350x500?text=No+Cover'} 
-            alt={book.title} 
+          <img
+            src={book.cover_image ? `https://api.portorey.my.id/uploads/${book.cover_image}` : 'https://via.placeholder.com/350x500?text=No+Cover'}
+
+            alt={book.title}
             className="w-full h-auto rounded-[1.8rem] shadow-inner"
           />
         </div>
@@ -73,7 +74,7 @@ const BookDetails = () => {
             <h1 className="text-5xl font-bold text-white mt-6 mb-4 tracking-tighter leading-tight uppercase">
               {book.title}
             </h1>
-            
+
             <div className="flex flex-wrap gap-6 mb-8">
               <div className="flex items-center gap-2 text-slate-400">
                 <User size={18} className="text-indigo-500" />
@@ -111,11 +112,12 @@ const BookDetails = () => {
             PDF Document
           </span>
         </div>
-        
+
         <div className="glass rounded-[2.5rem] overflow-hidden border-2 border-white/5 aspect-[16/10] sm:aspect-video shadow-2xl relative bg-slate-900/40">
           {book.file_path ? (
-            <iframe 
-              src={`http://localhost:5000/uploads/${book.file_path}#toolbar=0`} 
+            <iframe
+              src={`https://api.portorey.my.id/uploads/${book.file_path}#toolbar=0`}
+
               className="w-full h-full border-none"
               title={book.title}
             />

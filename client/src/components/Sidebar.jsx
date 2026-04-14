@@ -15,7 +15,8 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
 
   const fetchGenres = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/genres');
+      const res = await axios.get('https://api.portorey.my.id/api/genres');
+
       setGenres(res.data);
     } catch (err) {
       console.error("Error fetching genres", err);
@@ -37,7 +38,7 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
   return (
     <div className={`fixed inset-y-0 left-0 z-[120] w-[280px] p-6 flex flex-col glass border-r border-white/10 transition-transform duration-500 ease-in-out lg:translate-x-0 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
       <div className="mb-10">
-        <h1 className="text-3xl font-outfit text-indigo-500 font-bold tracking-tight">Buku.</h1>
+        <h1 className="text-3xl font-outfit text-indigo-500 font-bold tracking-tight">E-Buku</h1>
         <p className="text-xs text-slate-500 uppercase tracking-widest font-semibold mt-1">Premium Library</p>
       </div>
 
@@ -45,8 +46,8 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
         <ul className="space-y-2">
           {navItems.map((item) => (
             <li key={item.name}>
-              <Link 
-                to={item.path} 
+              <Link
+                to={item.path}
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center gap-3 p-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 hover:text-white ${location.pathname === item.path ? 'bg-indigo-500/10 text-indigo-400 border-l-4 border-indigo-500' : ''}`}
               >
@@ -58,8 +59,8 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
 
           {/* Genres Dropdown */}
           <li>
-            <div 
-              className={`flex items-center gap-3 p-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 hover:text-white cursor-pointer justify-between ${isGenresOpen ? 'bg-white/5' : ''}`} 
+            <div
+              className={`flex items-center gap-3 p-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 hover:text-white cursor-pointer justify-between ${isGenresOpen ? 'bg-white/5' : ''}`}
               onClick={() => setIsGenresOpen(!isGenresOpen)}
             >
               <div className="flex items-center gap-3">
@@ -68,12 +69,12 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
               </div>
               <ChevronDown size={16} className={`transition-transform duration-300 ${isGenresOpen ? 'rotate-180' : ''}`} />
             </div>
-            
+
             <div className={`overflow-hidden transition-all duration-300 pl-6 ${isGenresOpen ? 'max-h-[400px] mt-2' : 'max-h-0'}`}>
               <div className="space-y-1">
                 {genres.map(genre => (
-                  <Link 
-                    key={genre.id} 
+                  <Link
+                    key={genre.id}
                     to={`/genre/${genre.id}`}
                     onClick={() => setIsOpen(false)}
                     className={`flex items-center gap-2 py-2 px-3 text-[0.85rem] transition-colors hover:text-indigo-400 ${location.pathname === `/genre/${genre.id}` ? 'text-indigo-400 font-semibold' : 'text-slate-500'}`}
@@ -88,8 +89,8 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
         </ul>
       </nav>
 
-      <div className="mt-10 pt-6 border-t border-white/10">
-        {isAdmin ? (
+      {isAdmin && (
+        <div className="mt-10 pt-6 border-t border-white/10">
           <div className="space-y-2">
             <Link to="/admin/dashboard" onClick={() => setIsOpen(false)} className={`flex items-center gap-3 p-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 hover:text-white ${location.pathname === '/admin/dashboard' ? 'bg-indigo-500/10 text-indigo-400 border-l-4 border-indigo-500' : ''}`}>
               <LayoutDashboard size={20} />
@@ -99,13 +100,9 @@ const Sidebar = ({ isOpen, setIsOpen, isAdmin, setIsAdmin }) => {
               <LogOut size={18} /> Logout
             </button>
           </div>
-        ) : (
-          <Link to="/admin/login" onClick={() => setIsOpen(false)} className={`flex items-center gap-3 p-3 rounded-xl text-slate-400 transition-all hover:bg-white/5 hover:text-white ${location.pathname === '/admin/login' ? 'bg-indigo-500/10 text-indigo-400 border-l-4 border-indigo-500' : ''}`}>
-            <LogOut size={20} />
-            <span className="font-medium text-[0.95rem]">Admin Login</span>
-          </Link>
-        )}
-      </div>
+        </div>
+      )}
+
     </div>
   );
 };

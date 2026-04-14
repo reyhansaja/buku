@@ -26,9 +26,9 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const gRes = await axios.get('http://localhost:5000/api/genres');
-      const bRes = await axios.get('http://localhost:5000/api/books');
-      const iRes = await axios.get('http://localhost:5000/api/info');
+      const gRes = await axios.get('https://api.portorey.my.id/api/genres');
+      const bRes = await axios.get('https://api.portorey.my.id/api/books');
+      const iRes = await axios.get('https://api.portorey.my.id/api/info');
       setGenres(gRes.data);
       setBooks(bRes.data);
       setSiteInfo(iRes.data);
@@ -42,7 +42,7 @@ const AdminDashboard = () => {
   const handleAddGenre = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/genres', { name: newGenre }, config);
+      await axios.post('https://api.portorey.my.id/api/genres', { name: newGenre }, config);
       setNewGenre('');
       fetchData();
     } catch (err) { alert("Error adding genre"); }
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
 
   const handleUpdateGenre = async (id, name) => {
     try {
-      await axios.put(`http://localhost:5000/api/genres/${id}`, { name }, config);
+      await axios.put(`https://api.portorey.my.id/api/genres/${id}`, { name }, config);
       setEditingGenre(null);
       fetchData();
     } catch (err) { alert("Error updating genre"); }
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
   const handleDeleteGenre = async (id) => {
     if (!window.confirm("Are you sure you want to delete this genre? If it's linked to books, deletion might fail.")) return;
     try {
-      await axios.delete(`http://localhost:5000/api/genres/${id}`, config);
+      await axios.delete(`https://api.portorey.my.id/api/genres/${id}`, config);
       fetchData();
     } catch (err) { alert("Error deleting genre. It might be in use by books."); }
   };
@@ -75,7 +75,7 @@ const AdminDashboard = () => {
     if (newBook.book_file) formData.append('book_file', newBook.book_file);
 
     try {
-      await axios.post('http://localhost:5000/api/books', formData, {
+      await axios.post('https://api.portorey.my.id/api/books', formData, {
         headers: config.headers
       });
       setNewBook({ title: '', publisher: '', genre_id: '', description: '', cover_image: null, book_file: null });
@@ -88,7 +88,7 @@ const AdminDashboard = () => {
   const handleUpdateInfo = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/info', siteInfo, config);
+      await axios.post('https://api.portorey.my.id/api/info', siteInfo, config);
       alert("Information updated!");
     } catch (err) { alert("Error updating info"); }
   };
@@ -141,7 +141,7 @@ const AdminDashboard = () => {
                   {books.map(book => (
                     <div key={book.id} className="group flex items-center gap-4 p-4 bg-white/[0.02] border border-white/5 rounded-2xl hover:bg-white/[0.05] transition-all">
                       <img
-                        src={`http://localhost:5000/uploads/${book.cover_image}`}
+                        src={`https://api.portorey.my.id/uploads/${book.cover_image}`}
                         alt=""
                         className="w-12 h-16 object-cover rounded-md shadow-lg group-hover:scale-105 transition-transform"
                       />

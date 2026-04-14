@@ -16,9 +16,11 @@ const Home = () => {
   const fetchBooks = async () => {
     setLoading(true);
     try {
-      const url = id 
-        ? `http://localhost:5000/api/books?genre_id=${id}` 
-        : 'http://localhost:5000/api/books';
+      const url = id
+        ? `https://api.portorey.my.id/api/books?genre_id=${id}`
+        : 'https://api.portorey.my.id/api/books';
+
+
       const res = await axios.get(url);
       setBooks(res.data);
     } catch (err) {
@@ -28,7 +30,7 @@ const Home = () => {
     }
   };
 
-  const filteredBooks = books.filter(book => 
+  const filteredBooks = books.filter(book =>
     book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     book.publisher?.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -45,9 +47,9 @@ const Home = () => {
 
         <div className="relative flex-1 max-w-lg w-full">
           <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-500" size={22} />
-          <input 
-            type="text" 
-            placeholder="Search titles or publishers..." 
+          <input
+            type="text"
+            placeholder="Search titles or publishers..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="input-field pl-14 h-14 text-lg"
@@ -58,17 +60,20 @@ const Home = () => {
       {loading ? (
         <div className="flex justify-center items-center py-20 text-slate-400 animate-pulse text-lg">Loading books...</div>
       ) : (
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+
           {filteredBooks.map((book) => (
             <div key={book.id} className="group flex flex-row bg-slate-900/40 rounded-3xl overflow-hidden border border-white/5 transition-all duration-500 hover:border-indigo-500/50 hover:shadow-[0_20px_50px_-12px_rgba(99,102,241,0.2)]">
-              <div className="w-[120px] sm:w-[220px] lg:w-[260px] shrink-0 overflow-hidden">
-                <img 
-                  src={book.cover_image ? `http://localhost:5000/uploads/${book.cover_image}` : 'https://via.placeholder.com/200x300?text=No+Cover'} 
-                  alt={book.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              <div className="w-[100px] sm:w-[160px] lg:w-[180px] shrink-0 overflow-hidden bg-black/20 flex items-center justify-center">
+                <img
+                  src={book.cover_image ? `https://api.portorey.my.id/uploads/${book.cover_image}` : 'https://via.placeholder.com/200x300?text=No+Cover'}
+                  alt={book.title}
+                  className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
                 />
               </div>
-              <div className="flex-1 p-6 sm:p-8 flex flex-col">
+
+              <div className="flex-1 p-4 sm:p-6 lg:p-8 flex flex-col">
+
                 <div className="flex-1">
                   <span className="text-[0.7rem] font-bold text-indigo-400 uppercase tracking-widest bg-indigo-500/10 px-2 py-1 rounded-md">
                     {book.genre_name}
@@ -80,15 +85,15 @@ const Home = () => {
                     {book.description || 'No description available for this book. Explore the library to find more interesting reads.'}
                   </p>
                 </div>
-                
+
                 <div className="mt-8 flex items-center gap-3">
-                  <Link 
+                  <Link
                     to={`/book/${book.id}`}
                     className="flex-1 btn glass py-3 font-bold text-indigo-400"
                   >
                     Lihat
                   </Link>
-                  <Link 
+                  <Link
                     to={`/book/${book.id}`}
                     className="flex-1 btn btn-primary py-3 font-bold"
                   >
