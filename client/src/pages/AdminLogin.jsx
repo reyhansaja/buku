@@ -22,7 +22,8 @@ const AdminLogin = ({ setIsAdmin }) => {
   };
 
   return (
-    <div className="animate-fade min-h-[80vh] flex items-start justify-center pt-10 sm:pt-20 px-4">
+    <div className="animate-fade min-h-[80vh] flex items-start justify-center pt-1 sm:pt-4 px-4">
+
       <div className="glass p-8 sm:p-12 rounded-3xl w-full max-w-md shadow-2xl">
         <div className="text-center mb-10">
           <div className="bg-indigo-500/20 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 text-indigo-400 border border-indigo-500/30">
