@@ -256,19 +256,26 @@ const AdminDashboard = () => {
                     <label className="text-xs font-bold text-slate-500 ml-1 uppercase tracking-widest">Book Title</label>
                     <input type="text" placeholder="Book Title" className="input-field m-0" value={newBook.title} onChange={(e) => setNewBook({ ...newBook, title: e.target.value })} required />
                   </div>
-                  <input type="text" placeholder="Publisher Name" className="input-field m-0" value={newBook.publisher} onChange={(e) => setNewBook({ ...newBook, publisher: e.target.value })} />
-
-                  <select
-                    className="input-field m-0 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%2394a3b8%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[position:right_1.25rem_center] bg-no-repeat"
-                    value={newBook.genre_id}
-                    onChange={(e) => setNewBook({ ...newBook, genre_id: e.target.value })}
-                    required
-                  >
-                    <option value="" className="bg-slate-900">Select Genre</option>
-                    {genres.map(g => <option key={g.id} value={g.id} className="bg-slate-900">{g.name}</option>)}
-                  </select>
-
-                  <textarea placeholder="Brief description..." rows="3" className="input-field m-0 resize-none" value={newBook.description} onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}></textarea>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 ml-1 uppercase tracking-widest">Publisher Name</label>
+                    <input type="text" placeholder="Publisher Name" className="input-field m-0" value={newBook.publisher} onChange={(e) => setNewBook({ ...newBook, publisher: e.target.value })} />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 ml-1 uppercase tracking-widest">Genre</label>
+                    <select
+                      className="input-field m-0 appearance-none bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M5%207.5L10%2012.5L15%207.5%22%20stroke%3D%22%2394a3b8%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[position:right_1.25rem_center] bg-no-repeat"
+                      value={newBook.genre_id}
+                      onChange={(e) => setNewBook({ ...newBook, genre_id: e.target.value })}
+                      required
+                    >
+                      <option value="" className="bg-slate-900">Select Genre</option>
+                      {genres.map(g => <option key={g.id} value={g.id} className="bg-slate-900">{g.name}</option>)}
+                    </select>
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-bold text-slate-500 ml-1 uppercase tracking-widest">Description</label>
+                    <textarea placeholder="Brief description..." rows="3" className="input-field m-0 resize-none" value={newBook.description} onChange={(e) => setNewBook({ ...newBook, description: e.target.value })}></textarea>
+                  </div>
 
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-500 ml-1 uppercase tracking-widest">Book PDF Source</label>
