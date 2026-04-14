@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+  
+  --color-indigo-main: #6366f1;
+  --color-indigo-glow: rgba(99, 102, 241, 0.3);
+  --color-slate-925: #020617;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap');
+
+@layer base {
+  body {
+    @apply bg-[#020617] text-slate-50 font-inter antialiased overflow-x-hidden;
+  }
+  
+  h1, h2, h3 {
+    @apply font-outfit tracking-tight;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-slate-900/70 backdrop-blur-2xl border border-white/10;
+  }
+  
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 active:scale-95 disabled:opacity-50;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-br from-indigo-500 to-indigo-600 text-white shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5;
+  }
+
+  .nav-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 transition-all duration-300 hover:bg-white/5 hover:text-white;
+  }
+
+  .nav-link.active {
+    @apply bg-indigo-500/20 text-indigo-400 border-l-4 border-indigo-500 rounded-none rounded-r-xl;
+  }
+
+  .input-field {
+    @apply w-full bg-slate-900/50 border border-white/10 rounded-xl px-5 py-3.5 text-white outline-none transition-all duration-300 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/20;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
