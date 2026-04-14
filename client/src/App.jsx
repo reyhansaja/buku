@@ -32,7 +32,7 @@ function App() {
 
         {/* Mobile Header */}
         <div className="lg:hidden fixed top-0 w-full h-[70px] px-6 flex items-center justify-between glass z-[100] border-b border-white/10">
-          <h2 className="text-2xl font-outfit text-indigo-500 font-bold tracking-tight">Buku.</h2>
+          <h2 className="text-2xl font-outfit text-indigo-500 font-bold tracking-tight">E-Buku</h2>
           <button
             onClick={toggleSidebar}
             className="p-2.5 rounded-xl glass text-white active:scale-95 transition-all"
