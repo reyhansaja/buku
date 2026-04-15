@@ -15,12 +15,8 @@ const AdminDashboard = () => {
   const [imagePreview, setImagePreview] = useState(null);
   const [pdfName, setPdfName] = useState('');
   const [editingGenre, setEditingGenre] = useState(null); // { id, name }
-<<<<<<< HEAD
-  const [editingBookId, setEditingBookId] = useState(null);
-
-=======
   const [editingBook, setEditingBook] = useState(null); // book object
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
+
 
   const token = localStorage.getItem('token');
   const config = { headers: { authorization: token } };
@@ -105,62 +101,24 @@ const AdminDashboard = () => {
     if (newBook.book_file) formData.append('book_file', newBook.book_file);
 
     try {
-<<<<<<< HEAD
-      if (editingBookId) {
-        await axios.put(`https://api.portorey.my.id/api/books/${editingBookId}`, formData, {
-          headers: config.headers
-        });
-        alert("Book updated successfully!");
-=======
       if (editingBook) {
         await axios.put(`https://api.portorey.my.id/api/books/${editingBook.id}`, formData, {
           headers: config.headers
         });
+        alert("Book updated successfully!");
         setEditingBook(null);
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
       } else {
         await axios.post('https://api.portorey.my.id/api/books', formData, {
           headers: config.headers
         });
-<<<<<<< HEAD
         alert("Book added successfully!");
-=======
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
       }
       setNewBook({ title: '', publisher: '', genre_id: '', description: '', cover_image: null, book_file: null });
       setImagePreview(null);
       setPdfName('');
-      setEditingBookId(null);
       fetchData();
-<<<<<<< HEAD
-    } catch (err) { alert(editingBookId ? "Error updating book" : "Error adding book"); }
-=======
     } catch (err) { alert(`Error ${editingBook ? 'updating' : 'adding'} book`); }
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
   };
-
-  const handleDeleteBook = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this book?")) return;
-    try {
-      await axios.delete(`https://api.portorey.my.id/api/books/${id}`, config);
-      fetchData();
-    } catch (err) { alert("Error deleting book"); }
-  };
-
-  const handleEditSelection = (book) => {
-    setEditingBookId(book.id);
-    setNewBook({
-      title: book.title,
-      publisher: book.publisher || '',
-      genre_id: book.genre_id,
-      description: book.description || '',
-      cover_image: null,
-      book_file: null
-    });
-    setImagePreview(`https://api.portorey.my.id/uploads/${book.cover_image}`);
-    setPdfName(book.file_path || '');
-  };
-
 
   const handleUpdateInfo = async (e) => {
     e.preventDefault();
@@ -175,6 +133,7 @@ const AdminDashboard = () => {
     setNewBook({ ...newBook, cover_image: file });
     setImagePreview(URL.createObjectURL(file));
   };
+
 
   return (
     <div className="animate-fade">
@@ -228,26 +187,18 @@ const AdminDashboard = () => {
                           {book.genre_name} <span className="mx-1 text-slate-700">|</span> {book.publisher}
                         </p>
                       </div>
-<<<<<<< HEAD
-                      <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button onClick={() => handleEditSelection(book)} className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20 transition-all">
-                          <Edit2 size={18} />
-                        </button>
-                        <button onClick={() => handleDeleteBook(book.id)} className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-all">
-                          <Trash2 size={18} />
-=======
                       <div className="flex items-center gap-2 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-all">
                         <button onClick={() => handleEditBook(book)} className="p-2 rounded-xl bg-white/5 text-slate-400 hover:text-indigo-400 hover:bg-white/10 transition-all translate-y-2 lg:translate-x-4 lg:translate-y-0 lg:group-hover:translate-x-0">
                           <Edit2 size={16} />
                         </button>
                         <button onClick={() => handleDeleteBook(book.id)} className="p-2 rounded-xl bg-white/5 text-slate-400 hover:text-red-400 hover:bg-white/10 transition-all translate-y-2 lg:translate-x-4 lg:translate-y-0 lg:group-hover:translate-x-0">
                           <Trash2 size={16} />
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
                         </button>
                       </div>
-                    </div>
 
+                    </div>
                   ))}
+
                   {books.length === 0 && <p className="text-slate-500 italic py-10 text-center">No books available yet.</p>}
                 </div>
               </div>
@@ -329,13 +280,6 @@ const AdminDashboard = () => {
           <aside className="space-y-6 order-1 lg:order-2">
             {activeTab === 'books' && (
               <div className="glass p-6 sm:p-8 rounded-3xl sticky top-8">
-<<<<<<< HEAD
-                <h3 className="text-xl font-bold mb-6 flex items-center gap-2 tracking-tight">
-                  {editingBookId ? <Edit2 size={20} className="text-indigo-400" /> : <Plus size={20} className="text-indigo-400" />}
-                  {editingBookId ? 'Edit Book' : 'Add New Book'}
-                </h3>
-
-=======
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold flex items-center gap-2 tracking-tight">
                     {editingBook ? <Edit2 size={20} className="text-indigo-400" /> : <Plus size={20} className="text-indigo-400" />}
@@ -355,7 +299,7 @@ const AdminDashboard = () => {
                     </button>
                   )}
                 </div>
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
+
                 <form onSubmit={handleAddBook} className="space-y-4">
                   <div className="space-y-2">
                     <label className="text-xs font-bold text-slate-500 ml-1 uppercase tracking-widest">Cover Image</label>
@@ -416,35 +360,11 @@ const AdminDashboard = () => {
                     </div>
                   </div>
 
-<<<<<<< HEAD
-                  <div className="flex gap-2">
-                    <button type="submit" className="flex-1 btn btn-primary py-4 shadow-xl">
-                      {editingBookId ? <Save size={20} /> : <Plus size={20} />}
-                      {editingBookId ? 'Update Book' : 'Publishing Book'}
-                    </button>
-                    {editingBookId && (
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setEditingBookId(null);
-                          setNewBook({ title: '', publisher: '', genre_id: '', description: '', cover_image: null, book_file: null });
-                          setImagePreview(null);
-                          setPdfName('');
-                        }}
-                        className="btn glass p-4 text-slate-400"
-                        title="Cancel Edit"
-                      >
-                        <X size={20} />
-                      </button>
-                    )}
-                  </div>
-
-=======
-                   <button type="submit" className={`w-full btn py-4 shadow-xl ${editingBook ? 'btn-primary' : 'btn-primary'}`}>
-                    {editingBook ? <Check size={20} /> : <Plus size={20} />} 
+                  <button type="submit" className={`w-full btn py-4 shadow-xl ${editingBook ? 'btn-primary' : 'btn-primary'}`}>
+                    {editingBook ? <Check size={20} /> : <Plus size={20} />}
                     {editingBook ? 'Update Book' : 'Publishing Book'}
                   </button>
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
+
                 </form>
               </div>
             )}
@@ -470,3 +390,5 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
+
+

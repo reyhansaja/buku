@@ -91,14 +91,6 @@ router.put('/:id', auth, upload.fields([
     const { id } = req.params;
 
     try {
-<<<<<<< HEAD
-        // Get current book to keep old files if no new ones uploaded
-        const [rows] = await db.execute('SELECT cover_image, file_path FROM books WHERE id = ?', [id]);
-        if (rows.length === 0) return res.status(404).json({ message: 'Book not found' });
-
-        const cover_image = req.files && req.files['cover_image'] ? req.files['cover_image'][0].filename : rows[0].cover_image;
-        const file_path = req.files && req.files['book_file'] ? req.files['book_file'][0].filename : rows[0].file_path;
-=======
         // Get existing book to handle file cleanup
         const [existing] = await db.execute('SELECT cover_image, file_path FROM books WHERE id = ?', [id]);
         if (existing.length === 0) return res.status(404).json({ message: 'Book not found' });
@@ -107,7 +99,7 @@ router.put('/:id', auth, upload.fields([
         let file_path = existing[0].file_path;
 
         // If new files uploaded, delete old ones
-        if (req.files['cover_image']) {
+        if (req.files && req.files['cover_image']) {
             if (cover_image) {
                 const oldPath = path.join(__dirname, '../uploads', cover_image);
                 if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
@@ -115,25 +107,21 @@ router.put('/:id', auth, upload.fields([
             cover_image = req.files['cover_image'][0].filename;
         }
 
-        if (req.files['book_file']) {
+        if (req.files && req.files['book_file']) {
             if (file_path) {
                 const oldPath = path.join(__dirname, '../uploads', file_path);
                 if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath);
             }
             file_path = req.files['book_file'][0].filename;
         }
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
+
 
         await db.execute(
             'UPDATE books SET title = ?, publisher = ?, genre_id = ?, description = ?, cover_image = ?, file_path = ? WHERE id = ?',
             [title, publisher, genre_id, description, cover_image, file_path, id]
         );
-<<<<<<< HEAD
-        res.json({ message: 'Book updated successfully' });
-=======
-
         res.json({ message: 'Book updated successfully', id, title });
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
+
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
     }
@@ -141,11 +129,6 @@ router.put('/:id', auth, upload.fields([
 
 // Delete book (Protected)
 router.delete('/:id', auth, async (req, res) => {
-<<<<<<< HEAD
-    try {
-        const [result] = await db.execute('DELETE FROM books WHERE id = ?', [req.params.id]);
-        if (result.affectedRows === 0) return res.status(404).json({ message: 'Book not found' });
-=======
     const { id } = req.params;
     try {
         // Get book for file cleanup
@@ -164,7 +147,7 @@ router.delete('/:id', auth, async (req, res) => {
         }
 
         await db.execute('DELETE FROM books WHERE id = ?', [id]);
->>>>>>> 56901b5d55802c3dbf3fd9e3beeca804d15bf0f7
+
         res.json({ message: 'Book deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });
